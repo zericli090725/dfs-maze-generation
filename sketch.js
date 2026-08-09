@@ -2,10 +2,10 @@
 // DEPTH FIRST SEARCH
 // RECURSIVE BACKTRACKER
 
-let highlightCurrent = true; // change this value to control whether to highlight the current cell or not
+let highlightCurrent = false; // change this value to control whether to highlight the current cell or not
 let showVisited = false; // change this value to control whether to show visited cells or not
 let frameRateValue = 1000; // change this value to control the speed of the maze generation
-
+let saveImage = true; // change this value to control whether to save the maze as an image or not
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////// GLOBAL /////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -193,6 +193,9 @@ function draw() {
       current.highlight();
     }
   } else {
+    if (saveImage) {
+      save('maze.png');
+    }
     noLoop();
   }
 }
