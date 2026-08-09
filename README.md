@@ -4,7 +4,7 @@ A maze generator built with **p5.js** using **Depth-First Search (DFS)** and an 
 
 The program starts from the top-left cell and explores random unvisited neighboring cells. As it moves, it removes walls between connected cells. When it reaches a dead end, it backtracks through previously visited cells using a stack until it finds another available path.
 
-This process continues until every cell in the grid has been visited, producing a fully connected perfect maze.
+This process continues until every cell in the grid has been visited, producing a fully connected **perfect maze**. The completed maze can also be automatically saved as a PNG image.
 
 ## Features
 
@@ -15,6 +15,7 @@ This process continues until every cell in the grid has been visited, producing 
 * Adjustable maze generation speed
 * Optional visualization of visited cells
 * Optional highlighting of the current cell
+* Optional automatic PNG export when generation finishes
 * Dark-themed visualization
 * Automatically fills the browser window
 
@@ -37,6 +38,7 @@ The algorithm follows these steps:
 7. Move to the chosen neighbor.
 8. If there are no unvisited neighbors, backtrack by popping a previous cell from the stack.
 9. Repeat until the stack is empty and no unvisited neighbors remain.
+10. Optionally save the completed maze as an image.
 
 Because every newly visited cell is connected to a cell that has already been visited, the final maze remains fully connected.
 
@@ -50,15 +52,17 @@ The maze uses a dark visual theme designed to make the generation process easy t
 * Maze walls use a soft white color.
 * Visited cells can be displayed with a teal overlay.
 * The current cell can be highlighted in gold.
+* The final maze can be exported as a PNG image.
 
-## Visualization Settings
+## Settings
 
 The following variables can be changed at the top of the sketch:
 
 ```js
-let highlightCurrent = true;
+let highlightCurrent = false;
 let showVisited = false;
 let frameRateValue = 1000;
+let saveImage = true;
 ```
 
 ### `highlightCurrent`
@@ -91,6 +95,28 @@ let frameRateValue = 60;
 
 Lower values make the generation easier to observe, while higher values allow the algorithm to progress more quickly.
 
+### `saveImage`
+
+Controls whether the completed maze is automatically saved as an image.
+
+```js
+let saveImage = true;
+```
+
+When enabled, the maze is exported as:
+
+```text
+maze.png
+```
+
+once generation is complete.
+
+Set it to `false` to disable automatic image saving:
+
+```js
+let saveImage = false;
+```
+
 ## Grid Size
 
 The size of each maze cell is controlled by:
@@ -118,6 +144,7 @@ Increasing the value creates fewer, larger cells.
 * Depth-First Search
 * Recursive Backtracking
 * Stack-based traversal
+* Procedural generation
 
 ## Algorithm
 
@@ -146,6 +173,8 @@ Continue searching
 If the stack is empty:
   ↓
 Maze complete
+  ↓
+Optionally save maze.png
 ```
 
 The stack stores previously visited cells so the algorithm can return to earlier positions whenever it reaches a dead end.
@@ -163,6 +192,20 @@ A perfect maze has:
 
 This happens because each unvisited cell is connected to the existing maze exactly once.
 
+## Image Export
+
+When maze generation is finished, the program can automatically export the canvas using p5.js:
+
+```js
+if (saveImage) {
+  save("maze.png");
+}
+```
+
+This makes it easy to keep randomly generated maze layouts as standalone images.
+
+Because every run chooses neighboring cells randomly, each exported maze can have a different layout.
+
 ## Running the Project
 
 Clone the repository:
@@ -177,9 +220,9 @@ If running locally, make sure the p5.js library is included in your HTML file.
 
 ## Purpose
 
-This project was created to practice implementing graph traversal algorithms visually and to better understand how Depth-First Search and backtracking can be applied to procedural maze generation.
+This project was created to practice implementing graph traversal algorithms visually and to better understand how **Depth-First Search** and **backtracking** can be applied to procedural maze generation.
 
-It also serves as a visual demonstration of how a stack can be used to implement backtracking without relying on recursive function calls.
+It also demonstrates how a stack can implement backtracking without relying on recursive function calls, while providing configurable visualization and image-export features for exploring the generated results.
 
 ## License
 
